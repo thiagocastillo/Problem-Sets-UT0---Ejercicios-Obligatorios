@@ -9,10 +9,10 @@ public class Marcapasos {
 
     // Elegí int (4 bytes) asumiendo que el ID va a ser un número grande,
     // total hay como mil millones de personas que pueden necesitar uno.
-    private final int idDispositivo;
+    private final Object idDispositivo;
     
     // Le puse short (2 bytes) pensando que como mucho van a haber unos miles de fabricantes.
-    private final short codigoFabricante;
+    private final Object codigoFabricante;
     
     // Aca meter un byte (-128 a 127) iba a ser medio justo, un paciente
     // con taquicardia lo explota. Asi que va con short.
@@ -21,7 +21,7 @@ public class Marcapasos {
     // La batería va del 0 al 100 asi que entra re bien en un byte.
     private byte bateria;
 
-    public Marcapasos(int idDispositivo, short codigoFabricante, short pulsaciones, byte bateria) {
+    public Marcapasos(Object idDispositivo, Object codigoFabricante, short pulsaciones, byte bateria) {
         this.idDispositivo = idDispositivo;
         this.codigoFabricante = codigoFabricante;
         this.pulsaciones = pulsaciones;
@@ -29,11 +29,11 @@ public class Marcapasos {
         totalRegistrados++;
     }
 
-    public int getIdDispositivo() {
+    public Object getIdDispositivo() {
         return idDispositivo;
     }
 
-    public short getCodigoFabricante() {
+    public Object getCodigoFabricante() {
         return codigoFabricante;
     }
 
@@ -75,7 +75,7 @@ public class Marcapasos {
         Marcapasos elOtro = (Marcapasos) obj;
         
         // Son el mismo marcapasos unicamente si tienen el mismo ID y son de la misma marca
-        return idDispositivo == elOtro.idDispositivo && codigoFabricante == elOtro.codigoFabricante;
+        return Objects.equals(idDispositivo, elOtro.idDispositivo) && Objects.equals(codigoFabricante, elOtro.codigoFabricante);
     }
 
     @Override
@@ -84,9 +84,9 @@ public class Marcapasos {
     }
 
     public static void main(String[] args) {
-        Marcapasos m1 = new Marcapasos(1001, (short) 42, (short) 75, (byte) 98);
-        Marcapasos m2 = new Marcapasos(1001, (short) 42, (short) 80, (byte) 95);
-        Marcapasos m3 = new Marcapasos(2005, (short) 10, (short) 60, (byte) 20);
+        Marcapasos m1 = new Marcapasos("DP001", "F001", (short) 75, (byte) 98);
+        Marcapasos m2 = new Marcapasos("DP001", "F001", (short) 80, (byte) 95);
+        Marcapasos m3 = new Marcapasos("DP002", "F002", (short) 60, (byte) 20);
 
         System.out.println(m1);
         System.out.println(m3);
